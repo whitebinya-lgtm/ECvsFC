@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ethernet vs. Fiber Optic — Which Cable Wins?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff; --panel:#f5f5f7; --panel2:#eef0f3;
+  --fill2:#e8e8ed; --stroke:#d2d2d7;
+  --line:rgba(0,0,0,.08);
+  --ink:#1d1d1f; --dim:#6e6e73;
+  --cu:#0071e3; --cu-glow:#2f6fe0;
+  --fi:#ff8a00; --fi-glow:#c96500;
+  --radius:20px;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-behavior:smooth; scroll-padding-top:64px;}
+*{box-sizing:inherit;}
+body{margin:0; background:var(--bg); color:var(--ink); font-family:Inter,system-ui,-apple-system,sans-serif; line-height:1.55; -webkit-font-smoothing:antialiased;}
+h1,h2,h3,.disp{font-family:'Space Grotesk',Inter,sans-serif; font-weight:600; line-height:1.12; letter-spacing:-.01em; margin:0;}
+p{margin:0;}
+a{color:inherit;}
+img,svg{max-width:100%; display:block;}
+.wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
+section{padding:100px 0;}
+@media(max-width:640px){section{padding:64px 0;}}
+
+nav{position:sticky; top:0; z-index:40; backdrop-filter:blur(14px); background:rgba(255,255,255,.78); border-bottom:1px solid var(--line);}
+nav .wrap{display:flex; align-items:center; justify-content:space-between; padding-top:14px; padding-bottom:14px;}
+.brand{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.05rem;}
+.brand span{color:var(--cu);}
+.navlinks{display:flex; gap:26px; list-style:none; margin:0; padding:0; font-size:.92rem;}
+.navlinks a{text-decoration:none; color:var(--dim); transition:color .2s;}
+.navlinks a:hover,.navlinks a:focus-visible{color:var(--ink);}
+@media(max-width:640px){.navlinks{display:none;}}
+
+.hero{padding-top:80px; text-align:center;}
+.hero-inner{transition:opacity .1s linear;}
+.hero h1{font-size:clamp(2.2rem,5.8vw,3.8rem); max-width:16ch; margin:0 auto;}
+.hero .sub{color:var(--dim); font-size:1.18rem; max-width:44ch; margin:20px auto 0;}
+.cta-row{display:flex; gap:14px; justify-content:center; margin-top:34px; flex-wrap:wrap;}
+.btn{font:inherit; font-weight:600; font-size:.95rem; padding:13px 26px; border-radius:999px; border:1px solid var(--line); cursor:pointer; text-decoration:none; display:inline-block;}
+.btn-primary{background:var(--cu); color:#fff; border-color:transparent;}
+.btn-primary:hover{background:var(--cu-glow);}
+.btn-ghost{background:transparent; color:var(--ink);}
+.btn-ghost:hover{border-color:var(--dim);}
+.hero-cards{display:grid; grid-template-columns:1fr 1fr; gap:22px; max-width:760px; margin:56px auto 0;}
+@media(max-width:640px){.hero-cards{grid-template-columns:1fr;}}
+.hcard{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:30px 22px; text-align:left; transition:transform .3s; box-shadow:0 16px 40px rgba(0,0,0,.05);}
+.hcard:nth-child(1){transform:rotate(-1.2deg);}
+.hcard:nth-child(2){transform:rotate(1.2deg);}
+.hcard:hover{transform:rotate(0deg) translateY(-4px);}
+.hcard svg{width:100%; height:74px; margin-bottom:16px;}
+.hcard h3{font-size:1.1rem;}
+.hcard p{color:var(--dim); font-size:.9rem; margin-top:6px;}
+
+.scrollify{height:340vh; position:relative;}
+.scrollify-in{position:sticky; top:0; height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; overflow:hidden;}
+.cv-frame{background:var(--panel); border:1px solid var(--line); border-radius:28px; padding:22px; box-shadow:0 30px 70px rgba(0,0,0,.06);}
+#cv{width:min(88vw,700px); height:auto; display:block;}
+.caption{position:relative; height:64px; width:min(92vw,560px); margin-top:18px;}
+.caption p{position:absolute; inset:0; text-align:center; font-size:clamp(1rem,2.6vw,1.3rem); opacity:0; transition:opacity .5s; color:var(--dim);}
+.caption p strong{color:var(--ink); font-weight:600;}
+.caption p.on{opacity:1;}
+.scrollify-hint{position:absolute; bottom:26px; font-size:.78rem; color:var(--dim); letter-spacing:.02em;}
+
+.explain-grid{display:grid; grid-template-columns:1fr 1fr; gap:28px;}
+@media(max-width:640px){.explain-grid{grid-template-columns:1fr;}}
+.exp{border-left:3px solid var(--cu); padding-left:20px;}
+.exp.fi{border-color:var(--fi);}
+.exp h3{font-size:1.25rem; margin-bottom:8px;}
+.exp p{color:var(--dim);}
+.analogy{margin-top:40px; display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+@media(max-width:640px){.analogy{grid-template-columns:1fr;}}
+.analogy div{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:20px;}
+.analogy strong{display:block; margin-bottom:4px; font-family:'Space Grotesk',sans-serif;}
+.analogy p{color:var(--dim); font-size:.92rem;}
+
+h2{font-size:clamp(1.7rem,3.6vw,2.3rem); margin-bottom:10px;}
+.sec-sub{color:var(--dim); margin-bottom:36px; max-width:56ch;}
+table{width:100%; border-collapse:collapse; background:var(--panel); border-radius:var(--radius); overflow:hidden;}
+th,td{padding:14px 16px; text-align:left; border-bottom:1px solid var(--line); font-size:.92rem; vertical-align:top;}
+th{background:var(--panel2); font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:.82rem; color:var(--dim);}
+tr:last-child td{border-bottom:none;}
+.badge{display:inline-block; font-size:.7rem; font-weight:600; padding:2px 9px; border-radius:999px; margin-left:8px;}
+.b-cu{background:rgba(0,113,227,.10); color:var(--cu-glow);}
+.b-fi{background:rgba(255,138,0,.12); color:var(--fi-glow);}
+.table-note{margin-top:14px; font-size:.85rem; color:var(--dim);}
+@media(max-width:680px){
+  table,thead,tbody,th,tr,td{display:block;}
+  thead{display:none;}
+  tr{border:1px solid var(--line); border-radius:14px; margin-bottom:14px; padding:6px 4px; background:var(--panel);}
+  td{border:none; padding:8px 14px;}
+  td::before{content:attr(data-label); display:block; font-size:.72rem; color:var(--dim); margin-bottom:2px; font-family:'Space Grotesk',sans-serif;}
+}
+
+.info{position:relative; display:inline-flex; align-items:center; justify-content:center; width:18px; height:18px; border-radius:50%; border:1px solid var(--dim); color:var(--dim); font-size:.72rem; cursor:help; margin-left:8px;}
+.info:hover .tip,.info:focus-visible .tip{opacity:1; transform:translateY(0);}
+.tip{position:absolute; bottom:130%; left:50%; transform:translate(-50%,4px); width:240px; background:#fff; border:1px solid var(--line); padding:10px 12px; border-radius:10px; font-size:.78rem; color:var(--dim); opacity:0; pointer-events:none; transition:.2s; text-align:left; z-index:5; box-shadow:0 12px 30px rgba(0,0,0,.1);}
+.grid5{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:16px; margin-top:26px;}
+.ccard{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:20px;}
+.ccard h4{font-family:'Space Grotesk',sans-serif; font-size:1rem; margin-bottom:8px;}
+.ccard p{font-size:.85rem; color:var(--dim); margin-top:4px;}
+.ccard p+p{margin-top:8px;}
+
+.stack{display:flex; flex-direction:column; margin-top:30px;}
+.stack-card{position:sticky; border-radius:24px; padding:32px 34px; margin-bottom:20px; border:1px solid var(--line); box-shadow:0 24px 50px rgba(0,0,0,.07);}
+.stack-card h4{font-family:'Space Grotesk',sans-serif; font-size:1.15rem; margin-bottom:8px;}
+.stack-card p{color:var(--dim);}
+.sc1{top:90px; background:#eaf3ff;}
+.sc2{top:108px; background:#fff4e6;}
+.sc3{top:126px; background:#eaf3ff;}
+.sc4{top:144px; background:#fff4e6; margin-bottom:44px;}
+@media(max-width:640px){.stack-card{padding:22px;} .sc1{top:70px;} .sc2{top:86px;} .sc3{top:102px;} .sc4{top:118px;}}
+
+.cta-band{margin-top:20px; background:linear-gradient(120deg,rgba(0,113,227,.07),rgba(255,138,0,.07)); border:1px solid var(--line); border-radius:var(--radius); padding:34px; text-align:center;}
+.cta-band h3{font-size:1.3rem; margin-bottom:8px;}
+.cta-band p{color:var(--dim); margin-bottom:18px;}
+
+.grid-facts{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:16px; margin-top:26px;}
+.flip{perspective:1000px; height:140px; cursor:pointer;}
+.flip-in{position:relative; width:100%; height:100%; transition:transform .6s; transform-style:preserve-3d;}
+.flip.on .flip-in{transform:rotateY(180deg);}
+.flip-f,.flip-b{position:absolute; inset:0; backface-visibility:hidden; border-radius:14px; padding:18px; display:flex; align-items:center; font-size:.86rem; border:1px solid var(--line);}
+.flip-f{background:var(--panel);}
+.flip-b{background:var(--panel2); transform:rotateY(180deg); color:var(--dim); font-size:.82rem;}
+
+.quiz-card{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:30px; margin-top:26px;}
+.qitem{margin-bottom:26px;}
+.qitem p.q{font-weight:600; margin-bottom:12px;}
+.opts{display:flex; flex-direction:column; gap:8px;}
+.opt{display:flex; align-items:center; gap:10px; background:#fff; border:1px solid var(--line); border-radius:10px; padding:10px 14px; font-size:.92rem; cursor:pointer;}
+.opt input{accent-color:var(--cu);}
+#result{margin-top:10px; font-weight:600; min-height:24px;}
+
+footer{border-top:1px solid var(--line); padding:40px 0; text-align:center; color:var(--dim); font-size:.85rem;}
+footer .flinks{margin-top:10px; display:flex; gap:16px; justify-content:center;}
+footer .disc{max-width:56ch; margin:18px auto 0; font-size:.78rem;}
+
+.reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+.reveal.show{opacity:1; transform:none;}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;}}
+:focus-visible{outline:2px solid var(--cu); outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<nav aria-label="Primary">
+  <div class="wrap">
+    <div class="brand">Cable<span>Wins</span></div>
+    <ul class="navlinks">
+      <li><a href="#compare">Compare</a></li>
+      <li><a href="#cables">Cable Types</a></li>
+      <li><a href="#decide">Choose</a></li>
+      <li><a href="#facts">Fun Facts</a></li>
+      <li><a href="#quiz">Quiz</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="wrap hero-inner">
+    <h1>Ethernet vs. Fiber Optic: Which Cable Wins?</h1>
+    <p class="sub">Copper carries data as electricity. Fiber carries data as light.</p>
+    <div class="cta-row">
+      <a href="#compare" class="btn btn-primary">Compare Cables</a>
+      <a href="#quiz" class="btn btn-ghost">Take the Quick Quiz</a>
+    </div>
+    <div class="hero-cards">
+      <div class="hcard">
+        <svg viewBox="0 0 200 70"><rect x="4" y="28" width="150" height="14" rx="7" fill="var(--fill2)" stroke="var(--stroke)"/><rect x="150" y="18" width="34" height="34" rx="4" fill="#eaf3ff" stroke="var(--cu)"/><rect x="158" y="24" width="18" height="22" rx="2" fill="#fff"/></svg>
+        <h3>Ethernet / Copper</h3>
+        <p>RJ45 plug &middot; electrical signal &middot; the everyday workhorse.</p>
+      </div>
+      <div class="hcard">
+        <svg viewBox="0 0 200 70"><rect x="4" y="28" width="150" height="10" rx="5" fill="var(--fill2)" stroke="var(--stroke)"/><circle cx="4" cy="33" r="3" fill="var(--fi)"/><circle cx="40" cy="33" r="2.4" fill="var(--fi)" opacity=".7"/><circle cx="76" cy="33" r="2.4" fill="var(--fi)" opacity=".5"/><rect x="150" y="20" width="30" height="30" rx="4" fill="#fff4e6" stroke="var(--fi)"/><circle cx="165" cy="35" r="6" fill="var(--fi)"/></svg>
+        <h3>Fiber Optic</h3>
+        <p>LC / SC connector &middot; pulses of light &middot; built for distance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="scrollify" id="scrollify">
+  <div class="scrollify-in">
+    <div class="cv-frame"><canvas id="cv" width="700" height="340" aria-hidden="true"></canvas></div>
+    <div class="caption">
+      <p data-s="0" class="on">Ethernet moves data as <strong>electrical signals</strong>, riding along copper wire.</p>
+      <p data-s="1">Fiber moves data as <strong>pulses of light</strong>, riding along thin glass strands.</p>
+      <p data-s="2">Same job, different physics. <strong>Fiber's light pulses win the race.</strong></p>
+    </div>
+    <span class="scrollify-hint">Keep scrolling ↓</span>
+  </div>
+</section>
+
+<section class="wrap" id="explain">
+  <h2 class="reveal">Two ways to move the same data</h2>
+  <p class="sec-sub reveal">Different physics, same goal: getting bits from one device to another.</p>
+  <div class="explain-grid">
+    <div class="exp reveal"><h3>Ethernet / Copper</h3><p>Ethernet cables use copper wires and electrical signals to connect devices like PCs, routers, switches, consoles, and Wi-Fi access points.</p></div>
+    <div class="exp fi reveal"><h3>Fiber Optic</h3><p>Fiber-optic cables use tiny strands of glass or plastic and flashes of light to move data.</p></div>
+  </div>
+  <div class="analogy">
+    <div class="reveal"><strong>Copper is like cars on a road</strong><p>Signals travel as electrical current, sharing the "road" with resistance and interference along the way.</p></div>
+    <div class="reveal"><strong>Fiber is like light through a tunnel</strong><p>Signals travel as flashes of light bouncing down a glass tunnel — fast, and largely undisturbed by the outside world.</p></div>
+  </div>
+</section>
+
+<section class="wrap" id="compare">
+  <h2 class="reveal">The comparison</h2>
+  <p class="sec-sub reveal">The best cable depends on the situation — here's how they stack up.</p>
+  <div class="reveal">
+  <table>
+    <thead><tr><th>Feature</th><th>Ethernet / Copper</th><th>Fiber Optic</th></tr></thead>
+    <tbody>
+      <tr><td data-label="Feature">Signal type</td><td data-label="Ethernet / Copper">Electrical signals</td><td data-label="Fiber Optic">Pulses of light</td></tr>
+      <tr><td data-label="Feature">Common connectors</td><td data-label="Ethernet / Copper">RJ45</td><td data-label="Fiber Optic">LC, SC, MPO</td></tr>
+      <tr><td data-label="Feature">Typical distance</td><td data-label="Ethernet / Copper">Up to ~100 m for standard runs</td><td data-label="Fiber Optic">Hundreds of meters to many km <span class="badge b-fi">Winner</span></td></tr>
+      <tr><td data-label="Feature">Common speeds</td><td data-label="Ethernet / Copper">1 Gbps common; Cat6a hits 10 Gbps at 100 m</td><td data-label="Fiber Optic">Powers 10G, 40G, 100G+ links <span class="badge b-fi">Winner</span></td></tr>
+      <tr><td data-label="Feature">Interference</td><td data-label="Ethernet / Copper">Can be affected by EMI</td><td data-label="Fiber Optic">Resistant to EMI <span class="badge b-fi">Winner</span></td></tr>
+      <tr><td data-label="Feature">Power over Ethernet</td><td data-label="Ethernet / Copper">Yes — powers cameras, APs, phones <span class="badge b-cu">Winner</span></td><td data-label="Fiber Optic">No, fiber can't carry PoE</td></tr>
+      <tr><td data-label="Feature">Cost &amp; install</td><td data-label="Ethernet / Copper">Cheaper, easier to terminate <span class="badge b-cu">Winner</span></td><td data-label="Fiber Optic">More specialized equipment</td></tr>
+      <tr><td data-label="Feature">Best for</td><td data-label="Ethernet / Copper">Homes, classrooms, offices, short runs</td><td data-label="Fiber Optic">Campuses, data centers, long links</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="table-note">"Winner" marks the stronger cable for that specific row — the right overall choice still depends on your distance, budget, and power needs.</p>
+</section>
+
+<section class="wrap" id="cables">
+  <h2 class="reveal">Cable categories, quickly<span class="info" tabindex="0">ⓘ<span class="tip">Actual speed and distance depend on cable grade, connectors, transceivers, network devices, and installation quality.</span></span></h2>
+  <p class="sec-sub reveal">A quick reference for the grades you'll actually run into.</p>
+  <div class="grid5 reveal">
+    <div class="ccard"><h4>Cat5e</h4><p>Common use: basic home and office networking.</p><p>1 Gbps up to 100 m.</p></div>
+    <div class="ccard"><h4>Cat6</h4><p>Common use: faster local networks.</p><p>1 Gbps at 100 m; 10 Gbps over shorter runs.</p></div>
+    <div class="ccard"><h4>Cat6a</h4><p>Common use: future-ready offices, high-speed installs.</p><p>10 Gbps up to 100 m.</p></div>
+    <div class="ccard"><h4>Multimode fiber</h4><p>Common use: shorter high-speed runs inside buildings and data centers.</p></div>
+    <div class="ccard"><h4>Single-mode fiber</h4><p>Common use: long links between buildings, cities, or sites.</p></div>
+  </div>
+</section>
+
+<section class="wrap" id="decide">
+  <h2 class="reveal">Which should I choose?</h2>
+  <p class="sec-sub reveal">Match the cable to the job in front of you — scroll through each scenario.</p>
+  <div class="stack">
+    <div class="stack-card sc1"><h4>Home setup</h4><p>Choose Cat6 or Cat6a for most wired home devices.</p></div>
+    <div class="stack-card sc2"><h4>Gaming &amp; streaming</h4><p>Copper Ethernet is ideal for a console, PC, router, or switch in the same room or house.</p></div>
+    <div class="stack-card sc3"><h4>Connecting buildings</h4><p>Choose fiber when the run needs to beat normal copper distance limits, or cross between buildings.</p></div>
+    <div class="stack-card sc4"><h4>School, office, data center</h4><p>Fiber for backbone and high-capacity uplinks; copper for desks, access points, phones, nearby devices.</p></div>
+  </div>
+  <div class="cta-band reveal">
+    <h3>Not sure which one you need?</h3>
+    <p>Take the quick quiz below, or scan the comparison table one more time.</p>
+    <a href="#quiz" class="btn btn-primary">Take the Quick Quiz</a>
+  </div>
+</section>
+
+<section class="wrap" id="facts">
+  <h2 class="reveal">Fun facts</h2>
+  <p class="sec-sub reveal">Tap a card to flip it.</p>
+  <div class="grid-facts reveal" id="factsGrid">
+    <div class="flip"><div class="flip-in"><div class="flip-f">Fiber sends information using light — not electricity.</div><div class="flip-b">No electrical signal means no risk of electrical interference along the line.</div></div></div>
+    <div class="flip"><div class="flip-in"><div class="flip-f">Standard copper Ethernet tops out around 100 meters.</div><div class="flip-b">That's the commonly designed maximum for a single channel run.</div></div></div>
+    <div class="flip"><div class="flip-in"><div class="flip-f">Cat6a can hit 10 Gbps over a 100 m copper run.</div><div class="flip-b">Plenty for most homes and offices without switching to fiber.</div></div></div>
+    <div class="flip"><div class="flip-in"><div class="flip-f">Fiber shrugs off electromagnetic interference.</div><div class="flip-b">Useful near motors, industrial equipment, and other noisy electrical environments.</div></div></div>
+    <div class="flip"><div class="flip-in"><div class="flip-f">Copper can deliver data and power together.</div><div class="flip-b">That's Power over Ethernet (PoE) — it runs cameras, phones, and access points.</div></div></div>
+    <div class="flip"><div class="flip-in"><div class="flip-f">Some long-haul fiber links span many miles.</div><div class="flip-b">Exact reach depends on the fiber type and the equipment on each end.</div></div></div>
+    <div class="flip"><div class="flip-in"><div class="flip-f">Fiber strands can be remarkably thin.</div><div class="flip-b">Yet they can still carry enormous amounts of data at once.</div></div></div>
+  </div>
+</section>
+
+<section class="wrap" id="quiz">
+  <h2 class="reveal">Mini quiz</h2>
+  <p class="sec-sub reveal">Three questions. See how much stuck.</p>
+  <form class="quiz-card reveal" id="quizForm">
+    <div class="qitem">
+      <p class="q">1. Which cable sends data using light?</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q1" value="0">Cat6</label>
+        <label class="opt"><input type="radio" name="q1" value="1">Fiber optic</label>
+        <label class="opt"><input type="radio" name="q1" value="0">RJ45</label>
+      </div>
+    </div>
+    <div class="qitem">
+      <p class="q">2. Which cable can deliver Power over Ethernet?</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q2" value="1">Copper Ethernet</label>
+        <label class="opt"><input type="radio" name="q2" value="0">Fiber optic</label>
+        <label class="opt"><input type="radio" name="q2" value="0">Both</label>
+      </div>
+    </div>
+    <div class="qitem">
+      <p class="q">3. Best choice for a long connection between separate buildings?</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q3" value="0">Short Cat5e patch cable</label>
+        <label class="opt"><input type="radio" name="q3" value="1">Fiber optic cable</label>
+        <label class="opt"><input type="radio" name="q3" value="0">HDMI cable</label>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">See my score</button>
+    <p id="result" role="status"></p>
+  </form>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Made for curious network learners.</p>
+    <p class="disc">Cable performance depends on standards, cable type, length, installation, connectors, and networking equipment.</p>
+    <div class="flinks">
+      <a href="#">Learn More</a><a href="#">Glossary</a><a href="#">Sources</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const io = new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');io.unobserve(e.target);}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+document.getElementById('factsGrid').addEventListener('click',e=>{
+  const c=e.target.closest('.flip'); if(c) c.classList.toggle('on');
+});
+
+document.getElementById('quizForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  let score=0;
+  ['q1','q2','q3'].forEach(n=>{
+    const sel=document.querySelector(`input[name="${n}"]:checked`);
+    if(sel && sel.value==='1') score++;
+  });
+  const r=document.getElementById('result');
+  r.style.color = score===3 ? 'var(--fi-glow)' : (score===2 ? 'var(--cu-glow)' : 'var(--dim)');
+  r.textContent = score===3 ? `${score}/3 — Network pro!` : score===2 ? `${score}/3 — Great job, almost there!` : `${score}/3 — Nice start. Try the comparison section again!`;
+});
+
+const cv=document.getElementById('cv'), ctx=cv.getContext('2d');
+const W=cv.width,H=cv.height;
+function glow(x,y,r,color,blur){ctx.save();ctx.shadowColor=color;ctx.shadowBlur=blur;ctx.fillStyle=color;ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fill();ctx.restore();}
+function wire(y,label){
+  ctx.strokeStyle='rgba(0,0,0,.10)'; ctx.lineWidth=8; ctx.lineCap='round';
+  ctx.beginPath();ctx.moveTo(50,y);ctx.lineTo(W-50,y);ctx.stroke();
+  ctx.fillStyle='#6e6e73'; ctx.font='600 11px Inter,sans-serif'; ctx.fillText(label,50,y-18);
+}
+function draw(p){
+  ctx.clearRect(0,0,W,H);
+  wire(H*0.34,'ELECTRICAL SIGNAL — COPPER');
+  wire(H*0.72,'PULSE OF LIGHT — FIBER');
+  for(let i=0;i<5;i++){
+    const t=(p*1.6+i/5)%1, x=50+t*(W-100);
+    for(let k=3;k>=0;k--){
+      const tx=x-k*9;
+      if(tx>50) glow(tx,H*0.34,6-k*1.1,'#0071e3',k===0?18:5);
+    }
+  }
+  const ft=(p*1.6)%1, fx=50+ft*(W-100);
+  ctx.save();ctx.strokeStyle='rgba(255,138,0,.4)';ctx.lineWidth=4;ctx.lineCap='round';
+  ctx.beginPath();ctx.moveTo(50,H*0.72);ctx.lineTo(fx,H*0.72);ctx.stroke();ctx.restore();
+  glow(fx,H*0.72,5,'#ffd699',12);
+  glow(fx,H*0.72,9,'#ff8a00',28);
+}
+function updateCaption(p){
+  const stage = p<0.33?0:(p<0.66?1:2);
+  document.querySelectorAll('.caption p').forEach(el=>el.classList.toggle('on',+el.dataset.s===stage));
+}
+function onScroll(){
+  const el=document.getElementById('scrollify');
+  const rect=el.getBoundingClientRect();
+  const total=el.offsetHeight-window.innerHeight;
+  let p=-rect.top/total; p=Math.max(0,Math.min(1,p));
+  draw(p); updateCaption(p);
+}
+const heroInner=document.querySelector('.hero-inner'), heroSection=document.querySelector('.hero');
+function heroParallax(){
+  const h=heroSection.offsetHeight;
+  const p=Math.min(1, window.scrollY/(h*0.9));
+  heroInner.style.transform=`translateY(${p*-30}px) scale(${1-p*0.05})`;
+  heroInner.style.opacity=1-p*1.15;
+}
+window.addEventListener('scroll',()=>requestAnimationFrame(()=>{onScroll();heroParallax();}),{passive:true});
+draw(0); updateCaption(0); heroParallax();
+</script>
+</body>
+</html>
